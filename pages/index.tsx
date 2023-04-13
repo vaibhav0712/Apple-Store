@@ -4,7 +4,27 @@ import Landing from "@/components/Landing";
 const inter = Inter({ subsets: ["latin"] });
 import { Tab } from "@headlessui/react";
 import { GetServerSideProps } from "next";
-export default function Home() {
+import { fetchCategories } from "@/utils/fetchCategories";
+import { fetchProducts } from "@/utils/fetchProducts";
+import Product from "@/components/Product";
+
+interface Props {
+  categories: Category[];
+  produsts: Product[];
+}
+
+export default function Home({ categories, produsts }: Props) {
+  console.log(categories);
+  console.log(produsts);
+
+  const showProducts = (category: number) => {
+    const result = produsts
+      .filter((product) => product.category._ref === categories[category]._id)
+      .map((product) => <Product product={product} key={product._id} />); // filter products by category
+    console.log(result);
+    return result;
+  };
+
   return (
     <div>
       <Header />
@@ -12,13 +32,13 @@ export default function Home() {
         <Landing />
       </main>
       <section className="relative z-40 -mt-[100vh] min-h-screen bg-[#1B1B1B]">
-        <div>
-          <h1 className="text-center text-4xl font-medium tracking-wide text-white md:text-5xl">
+        <div className="space-y-10 py-16">
+          <h1 className=" text-center text-4xl font-medium tracking-wide text-white md:text-5xl">
             New Promos
           </h1>
           <Tab.Group>
             <Tab.List className="flex justify-center">
-              {/* {categories.map((category) => (
+              {categories.map((category) => (
                 <Tab
                   key={category._id}
                   id={category._id}
@@ -32,13 +52,13 @@ export default function Home() {
                 >
                   {category.title}
                 </Tab>
-              ))} */}
+              ))}
             </Tab.List>
             <Tab.Panels className="mx-auto max-w-fit pb-24 pt-10 sm:px-4">
-              {/* <Tab.Panel className="tabPanel">{showProducts(0)}</Tab.Panel>
+              <Tab.Panel className="tabPanel">{showProducts(0)}</Tab.Panel>
               <Tab.Panel className="tabPanel">{showProducts(1)}</Tab.Panel>
               <Tab.Panel className="tabPanel">{showProducts(2)}</Tab.Panel>
-              <Tab.Panel className="tabPanel">{showProducts(3)}</Tab.Panel> */}
+              <Tab.Panel className="tabPanel">{showProducts(3)}</Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
         </div>
@@ -48,9 +68,13 @@ export default function Home() {
 }
 
 // backend code
-export const getServerSideProps: GetServerSideProps = async () => {
-  // const categories = await fetchCategories()
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const categories = await fetchCategories();
+  const produsts = await fetchProducts();
   return {
-    props: {},
+    props: {
+      categories,
+      produsts,
+    },
   };
 };
