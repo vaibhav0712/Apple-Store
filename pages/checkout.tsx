@@ -7,6 +7,8 @@ import Button from "@/components/Button";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import CheckoutProduct from "@/components/CheckoutProduct";
+import Currency from "react-currency-formatter";
+
 function Checkout() {
   const items = useSelector(selectBasketItems);
   const router = useRouter();

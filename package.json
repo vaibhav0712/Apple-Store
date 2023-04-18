@@ -24,6 +24,7 @@
     "next-sanity": "^4.1.7",
     "postcss": "8.4.21",
     "react": "18.2.0",
+    "react-currency-formatter": "^1.1.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-redux": "^8.0.5",
@@ -31,6 +32,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@types/react-currency-formatter": "^1.1.4",
     "prettier": "^2.8.7",
     "prettier-plugin-tailwindcss": "^0.2.7"
   }

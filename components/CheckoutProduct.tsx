@@ -1,15 +1,28 @@
 import { urlFor } from "@/sanity";
 import React from "react";
-import Image from "next/image";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import Currency from "react-currency-formatter";
+import { useDispatch } from "react-redux";
+import { removeFromBasket } from "@/redux/basketSlice";
+import toast from "react-hot-toast";
+
 interface Props {
   items: Product[];
   id: string;
 }
 
 function CheckoutProduct({ id, items }: Props) {
+  const dispatch = useDispatch();
+  const removeItemFromBasket = () => {
+    dispatch(removeFromBasket({ id }));
+
+    toast.error(`${items[0].title} removed from basket`, {
+      position: "top-center",
+    });
+  };
+
   return (
-    <div>
+    <div className="flex flex-col gap-x-4 border-b border-gray-300 pb-5 lg:flex-row lg:items-center">
       <div className="h-44 w-44">
         <img alt="product" src={urlFor(items[0].image[0]).url()} />
       </div>
@@ -29,8 +42,19 @@ function CheckoutProduct({ id, items }: Props) {
           </p>
         </div>
 
-        <div>
-          <h4>//? working on this</h4>
+        <div className="flex flex-col items-end space-y-4">
+          <h4 className="text-xl font-semibold lg:text-2xl">
+            <Currency
+              quantity={items.reduce((total, item) => total + item.price, 0)}
+              currency="INR"
+            />
+          </h4>
+          <button
+            onClick={removeItemFromBasket}
+            className="text-blue-500 hover:underline"
+          >
+            Remove
+          </button>
         </div>
       </div>
     </div>
