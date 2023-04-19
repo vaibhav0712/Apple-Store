@@ -10,10 +10,16 @@ import CheckoutProduct from "@/components/CheckoutProduct";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import Currency from "react-currency-formatter";
 import { selectBasketTotal } from "../redux/basketSlice";
+import { loadStripe } from "@stripe/stripe-js";
+import Stripe from "stripe";
+import { fetchPostJSON } from "../utils/apih-helpers";
+import getStripe from "../utils/get-stripe";
 function Checkout() {
   const items = useSelector(selectBasketItems);
   const router = useRouter();
   const basketTotal = useSelector(selectBasketTotal);
+  const [loading, setLoading] = useState(true);
+
   const [groupedItemsInBasket, setGroupedItemsInBasket] = useState(
     {} as { [key: string]: Product[] }
   );
@@ -27,34 +33,33 @@ function Checkout() {
     setGroupedItemsInBasket(groupedItems);
   }, [items]);
 
+  const createCheckoutSession = async () => {
+    setLoading(true);
+
+    const checkoutSession: Stripe.Checkout.Session = await fetchPostJSON(
+      "/api/checkout_session",
+      {
+        items: items,
+      }
+    );
+    // internal server error (500)
+    if ((checkoutSession as any).statusCode === 500) {
+      console.error((checkoutSession as any).message);
+      return;
+    }
+
+    // redirect checkout
+    const stripe = await getStripe();
+    const { error } = await stripe!.redirectToCheckout({
+      sessionId: checkoutSession.id,
+    });
+
+    console.warn(error.message);
+
+    setLoading(false);
+  };
+
   return (
-    // <div>
-    //   <Head>
-    //     <title>Checkout</title>
-    //   </Head>
-    //   <Header />
-    //   <main>
-    //     <div>
-    //       <h1 className="lg:tex-4xl my-4 text-3xl font-semibold">
-    //         {items.length > 0 ? "Review your bag." : "Your bag is empty."}
-    //       </h1>
-    //       <p className="my-4">Free delivery and free returns.</p>
-    //       {items.length === 0 && (
-    //         <Button
-    //           title="Continue Shopping"
-    //           onClick={() => router.push("/")}
-    //         />
-    //       )}
-    //     </div>
-    //     {items.length > 0 && (
-    //       <div>
-    //         {Object.entries(groupeItemsInBasket).map(([key, items]) => (
-    //           <CheckoutProduct key={key} items={items} id={key} />
-    //         ))}
-    //       </div>
-    //     )}
-    //   </main>
-    // </div>
     <div className="min-h-screen overflow-hidden bg-[#E7ECEE]">
       <Head>
         <title>Bag - Apple</title>
@@ -145,10 +150,10 @@ function Checkout() {
 
                     <Button
                       noIcon
-                      // loading={loading}
+                      loading={loading}
                       title="Check Out"
                       width="w-full"
-                      // onClick={createCheckoutSession}
+                      onClick={createCheckoutSession}
                     />
                   </div>
                 </div>
