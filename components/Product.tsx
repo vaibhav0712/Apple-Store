@@ -14,11 +14,11 @@ interface Props {
 function Product({ product }: Props) {
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state);
-  console.log(data);
+
 
   const addToBasketHandler = () => {
     dispatch(addToBasket(product));
-    console.log("Added to basket");
+    
     toast.success(`${product.title} added to basket`, {
       position: "top-center",
     });

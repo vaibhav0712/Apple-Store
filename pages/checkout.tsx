@@ -14,22 +14,22 @@ import { loadStripe } from "@stripe/stripe-js";
 import Stripe from "stripe";
 import { fetchPostJSON } from "../utils/apih-helpers";
 import getStripe from "../utils/get-stripe";
+
 function Checkout() {
   const items = useSelector(selectBasketItems);
-  const router = useRouter();
   const basketTotal = useSelector(selectBasketTotal);
-  const [loading, setLoading] = useState(true);
-
+  const router = useRouter();
   const [groupedItemsInBasket, setGroupedItemsInBasket] = useState(
     {} as { [key: string]: Product[] }
   );
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const groupedItems = items.reduce((results, item) => {
       (results[item._id] = results[item._id] || []).push(item);
       return results;
     }, {} as { [key: string]: Product[] });
-    console.log("grou[edItems", groupedItems);
+
     setGroupedItemsInBasket(groupedItems);
   }, [items]);
 
@@ -37,23 +37,31 @@ function Checkout() {
     setLoading(true);
 
     const checkoutSession: Stripe.Checkout.Session = await fetchPostJSON(
-      "/api/checkout_session",
+      "/api/checkout_sessions",
       {
         items: items,
       }
     );
-    // internal server error (500)
-    if ((checkoutSession as any).statusCode === 500) {
-      console.error((checkoutSession as any).message);
-      return;
-    }
+    console.log("checkoutSession", checkoutSession);
+    // Internal Server Error
+    // if ((checkoutSession as any).statusCode === 500) {
+    //   console.error((checkoutSession as any).message);
+    //   return;
+    // }
 
-    // redirect checkout
+    // Redirect to checkout
+
     const stripe = await getStripe();
     const { error } = await stripe!.redirectToCheckout({
+      // Make the id field from the Checkout Session creation API response
+      // available to this file, so you can provide it as parameter here
+      // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
       sessionId: checkoutSession.id,
     });
 
+    // If `redirectToCheckout` fails due to a browser or network
+    // error, display the localized error message to your customer
+    // using `error.message`.
     console.warn(error.message);
 
     setLoading(false);
@@ -87,13 +95,13 @@ function Checkout() {
               <CheckoutProduct key={key} items={items} id={key} />
             ))}
 
-            <div className="my-12 ml-auto mt-6 max-w-3xl lg:max-w-full">
+            <div className="my-12 ml-auto mt-6 max-w-3xl">
               <div className="divide-y divide-gray-300">
                 <div className="pb-4">
                   <div className="flex justify-between">
                     <p>Subtotal</p>
                     <p>
-                      <Currency quantity={basketTotal} currency="INR" />
+                      <Currency quantity={basketTotal} currency="USD" />
                     </p>
                   </div>
                   <div className="flex justify-between">
@@ -115,7 +123,7 @@ function Checkout() {
                 <div className="flex justify-between pt-4 text-xl font-semibold">
                   <h4>Total</h4>
                   <h4>
-                    <Currency quantity={basketTotal} currency="INR" />
+                    <Currency quantity={basketTotal} currency="USD" />
                   </h4>
                 </div>
               </div>
@@ -144,7 +152,7 @@ function Checkout() {
                     <h4 className="mb-4 flex flex-col text-xl font-semibold">
                       Pay in full
                       <span>
-                        <Currency quantity={basketTotal} currency="INR" />
+                        <Currency quantity={basketTotal} currency="USD" />
                       </span>
                     </h4>
 

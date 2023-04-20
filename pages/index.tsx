@@ -15,14 +15,11 @@ interface Props {
 }
 
 export default function Home({ categories, produsts }: Props) {
-  console.log(categories);
-  console.log(produsts);
-
   const showProducts = (category: number) => {
     const result = produsts
       .filter((product) => product.category._ref === categories[category]._id)
       .map((product) => <Product product={product} key={product._id} />); // filter products by category
-    console.log(result);
+
     return result;
   };
 
