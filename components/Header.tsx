@@ -8,9 +8,14 @@ import {
   ShoppingBagIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 function Header() {
-  const session = false;
+  const { data: session } = useSession();
+  console.log(
+    "https://lh3.googleusercontent.com/a/AGNmyxbHBFdRhMvikdkAFaLiPszPgP0quL5v6VzpzaI2ng=s96-c",
+    session?.user?.image
+  );
   const basket = useSelector((state: any) => state.basket);
 
   return (
@@ -48,9 +53,14 @@ function Header() {
         </Link>
         {/* userProfile_icon || default icon */}
         {session ? (
-          <img src="/userprofile" alt="user" />
+          <img
+            src={session.user?.image || "img"}
+            alt="user"
+            className="h-8 w-8 rounded-full"
+            onClick={() => signOut()}
+          />
         ) : (
-          <UserIcon className="headerIcon" />
+          <UserIcon className="headerIcon" onClick={() => signIn()} />
         )}
       </div>
     </header>
