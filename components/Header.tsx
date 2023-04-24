@@ -24,7 +24,11 @@ function Header() {
       <div className="flex items-center justify-center md:w-1/5 ">
         <Link href="/">
           <div className="relative flex h-10 w-5 cursor-pointer items-center justify-center opacity-75 transition hover:opacity-100">
-            <img src="/Apple_logo_black.svg.png" className="object-contain" />
+            <img
+              src="/Apple_logo_black.svg.png"
+              className="object-contain"
+              alt=""
+            />
           </div>
         </Link>
       </div>

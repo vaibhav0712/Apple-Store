@@ -15,10 +15,9 @@ function Product({ product }: Props) {
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state);
 
-
   const addToBasketHandler = () => {
     dispatch(addToBasket(product));
-    
+
     toast.success(`${product.title} added to basket`, {
       position: "top-center",
     });
@@ -27,7 +26,11 @@ function Product({ product }: Props) {
   return (
     <div className="flex h-fit w-[320px] select-none flex-col space-y-3 rounded-xl bg-[#35383C] p-8 md:h-[500px] md:w-[400px] md:p-10">
       <div className="flex h-64  w-full justify-center md:h-72">
-        <img src={urlFor(product.image[0]).url()} className="object-contain" />
+        <img
+          src={urlFor(product.image[0]).url()}
+          className="object-contain"
+          alt=""
+        />
       </div>
 
       <div className="flex flex-1 items-center justify-between space-x-3">

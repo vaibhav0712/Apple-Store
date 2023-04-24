@@ -53,7 +53,11 @@ function Success({ products }: Props) {
       <header className="mx-auto max-w-xl">
         <Link href="/">
           <div className="ml-4 flex h-16 w-8 cursor-pointer items-center justify-center transition lg:hidden">
-            <img src="/Apple_logo_black.svg.png" className="object-cover"></img>
+            <img
+              src="/Apple_logo_black.svg.png"
+              className="object-cover"
+              alt=""
+            />
           </div>
         </Link>
       </header>
@@ -64,7 +68,8 @@ function Success({ products }: Props) {
               <img
                 src="/Apple_logo_black.svg.png"
                 className="object-cover"
-              ></img>
+                alt=""
+              />
             </div>
           </Link>
 
@@ -94,8 +99,8 @@ function Success({ products }: Props) {
             >
               <p>Your order is confirmed</p>
               <p className="text-sm text-gray-600">
-                we've accepted your order, and we're getting it ready for you.
-                come back to this page to track your order.
+                weve accepted your order, and we're getting it ready for
+                you.come back to this page to track your order.
               </p>
             </div>
             <div className="pt-3 text-sm">

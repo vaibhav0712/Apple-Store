@@ -27,6 +27,7 @@ function CheckoutProduct({ id, items }: Props) {
         <img
           style={{ height: "inherit" }}
           src={urlFor(items[0].image[0]).url()}
+          alt=""
         />
       </div>
 
