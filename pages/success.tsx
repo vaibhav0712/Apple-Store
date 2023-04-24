@@ -99,7 +99,7 @@ function Success({ products }: Props) {
             >
               <p>Your order is confirmed</p>
               <p className="text-sm text-gray-600">
-                weve accepted your order, and we're getting it ready for
+                weve accepted your order, and we are getting it ready for
                 you.come back to this page to track your order.
               </p>
             </div>
@@ -113,7 +113,7 @@ function Success({ products }: Props) {
           <div className="mx-4 my-4 space-y-2 rounded-md border border-gray-300 p-4 lg:ml-14">
             <p>Order updates</p>
             <p className="text-sm text-gray-600">
-              You’ll get shipping and delivery updates by email and text.
+              You will get shipping and delivery updates by email and text.
             </p>
           </div>
           <div className="mx-4 flex flex-col items-center justify-between text-sm lg:ml-14 lg:flex-row">
