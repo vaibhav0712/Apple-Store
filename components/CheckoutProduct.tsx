@@ -5,7 +5,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useDispatch } from "react-redux";
 import { removeFromBasket } from "@/redux/basketSlice";
 import toast from "react-hot-toast";
-
+// import {Image} from "next/image";
 interface Props {
   items: Product[];
   id: string;
