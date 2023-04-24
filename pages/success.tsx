@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import Button from "@/components/Button";
 import { useMediaQuery } from "react-responsive";
-import Currency from "react-currency-formatter";
+// import Currency from "react-currency-formatter";
 import products from "@/my-sanity-project/schemas/products";
 import { GetServerSideProps } from "next";
 import { fetchLineItems } from "@/utils/fetchLineItems";
@@ -144,7 +144,7 @@ function Success({ products }: Props) {
                   )}
                 </button>
                 <p className="text-xl font-medium text-black">
-                  <Currency quantity={subtotal + 20} />
+                  {/* <Currency quantity={subtotal + 20} /> */}₹{subtotal + 20}
                 </p>
               </div>
             </div>
@@ -170,10 +170,11 @@ function Success({ products }: Props) {
                       </div>
                       <p className="flex-1">{product.description}</p>
                       <p>
-                        <Currency
+                        {/* <Currency
                           quantity={product.price.unit_amount / 100}
                           currency={product.currency}
-                        />
+                        /> */}
+                        ₹{product.price.unit_amount / 100}
                       </p>
                     </div>
                   ))}
@@ -182,7 +183,7 @@ function Success({ products }: Props) {
                   <div className="flex justify-between text-sm">
                     <p className="text-[gray]">Subtotal</p>
                     <p className="font-medium">
-                      <Currency quantity={subtotal} />
+                      {/* <Currency quantity={subtotal} /> */}₹{subtotal}
                     </p>
                   </div>
                   <div className="flex justify-between text-sm">
@@ -192,16 +193,17 @@ function Success({ products }: Props) {
                   <div className="flex justify-between text-sm">
                     <p className="text-[gray]">Shipping</p>
                     <p className="font-medium">
-                      <Currency quantity={20} currency="USD" />
+                      {/* <Currency quantity={20} currency="USD" /> */}₹{20}
                     </p>
                   </div>
                 </div>
                 <div className="flex justify-between pt-4">
                   <p>Total</p>
                   <p className="flex items-center gap-x-2 text-xs text-[gray]">
-                    USD
+                    ₹
                     <span className="text-xl font-medium text-black">
-                      <Currency quantity={subtotal + 20} />
+                      {/* <Currency quantity={subtotal + 20} /> */}
+                      {subtotal + 20}
                     </span>
                   </p>
                 </div>

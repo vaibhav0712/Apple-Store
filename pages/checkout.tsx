@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import CheckoutProduct from "@/components/CheckoutProduct";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import Currency from "react-currency-formatter";
+// import Currency from "react-currency-formatter";
 import { selectBasketTotal } from "../redux/basketSlice";
 import { loadStripe } from "@stripe/stripe-js";
 import Stripe from "stripe";
@@ -101,7 +101,8 @@ function Checkout() {
                   <div className="flex justify-between">
                     <p>Subtotal</p>
                     <p>
-                      <Currency quantity={basketTotal} currency="USD" />
+                      {/* <Currency quantity={basketTotal} currency="USD" /> */}
+                      ₹{basketTotal}
                     </p>
                   </div>
                   <div className="flex justify-between">
@@ -123,7 +124,8 @@ function Checkout() {
                 <div className="flex justify-between pt-4 text-xl font-semibold">
                   <h4>Total</h4>
                   <h4>
-                    <Currency quantity={basketTotal} currency="USD" />
+                    {/* <Currency quantity={basketTotal} currency="USD" /> */}₹
+                    {basketTotal}
                   </h4>
                 </div>
               </div>
@@ -152,7 +154,8 @@ function Checkout() {
                     <h4 className="mb-4 flex flex-col text-xl font-semibold">
                       Pay in full
                       <span>
-                        <Currency quantity={basketTotal} currency="USD" />
+                        {/* <Currency quantity={basketTotal} currency="USD" /> */}
+                        ₹{basketTotal}
                       </span>
                     </h4>
 

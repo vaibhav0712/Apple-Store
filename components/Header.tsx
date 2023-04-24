@@ -14,7 +14,7 @@ function Header() {
   const { data: session } = useSession();
   console.log(
     "https://lh3.googleusercontent.com/a/AGNmyxbHBFdRhMvikdkAFaLiPszPgP0quL5v6VzpzaI2ng=s96-c",
-    session?.user?.image
+    session
   );
   const basket = useSelector((state: any) => state.basket);
 
@@ -54,7 +54,7 @@ function Header() {
         {/* userProfile_icon || default icon */}
         {session ? (
           <img
-            src={session.user?.image || "img"}
+            src={session.user?.image || ""}
             alt="user"
             className="h-8 w-8 rounded-full"
             onClick={() => signOut()}
