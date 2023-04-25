@@ -74,8 +74,8 @@ function Checkout() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <main className="mx-auto max-w-5xl pb-24">
-        <div className="px-5">
+      <main className="pb-214 mx-auto max-w-5xl">
+        <div className="flex flex-col items-center justify-center">
           <h1 className="my-4 text-3xl font-semibold lg:text-4xl">
             {items.length > 0 ? "Review your bag." : "Your bag is empty."}
           </h1>
@@ -95,7 +95,7 @@ function Checkout() {
               <CheckoutProduct key={key} items={items} id={key} />
             ))}
 
-            <div className="my-12 ml-auto mt-6 max-w-3xl">
+            <div className="my-12 ml-auto mt-6">
               <div className="divide-y divide-gray-300">
                 <div className="pb-4">
                   <div className="flex justify-between">

@@ -35,10 +35,18 @@ function Header() {
 
       {/* navigation-bar */}
       <div className="hidden flex-1 items-center justify-center space-x-8 md:flex">
-        <a className="headerLink">Product</a>
-        <a className="headerLink">Explore</a>
-        <a className="headerLink">Support</a>
-        <a className="headerLink">Business</a>
+        <a className="headerLink" href="/product">
+          Product
+        </a>
+        <a className="headerLink" href="/explore">
+          Explore
+        </a>
+        <a className="headerLink" href="/support">
+          Support
+        </a>
+        <a className="headerLink" href="/business">
+          Business
+        </a>
       </div>
       {/* navigation-icons */}
       <div className="flex items-center justify-center gap-x-4 md:w-1/5">
