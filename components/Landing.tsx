@@ -17,7 +17,11 @@ function Landing() {
         </div>
       </div>
       <div className="relative hidden  h-[450px] w-[450px] transition-all duration-500 md:inline lg:h-[650px] lg:w-[650px] ">
-        <img src="/iphone.png" className="object-contain" alt="" />
+        <img
+          src="https://ivenus.in/wp-content/uploads/2022/09/iphone-14-pro-Max-finish-unselect-gallery-2-202209.png"
+          className="object-contain"
+          alt=""
+        />
       </div>
     </section>
   );
