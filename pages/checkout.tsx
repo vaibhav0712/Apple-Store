@@ -8,12 +8,12 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import CheckoutProduct from "@/components/CheckoutProduct";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-// import Currency from "react-currency-formatter";
 import { selectBasketTotal } from "../redux/basketSlice";
 import { loadStripe } from "@stripe/stripe-js";
 import Stripe from "stripe";
 import { fetchPostJSON } from "../utils/apih-helpers";
 import getStripe from "../utils/get-stripe";
+import toast from "react-hot-toast";
 
 function Checkout() {
   const items = useSelector(selectBasketItems);
@@ -67,6 +67,12 @@ function Checkout() {
     setLoading(false);
   };
 
+  const emiButtonHandler = () => {
+    toast.error(`currently this payment method not available.`, {
+      position: "top-center",
+    });
+  };
+
   return (
     <div className="min-h-screen overflow-hidden bg-[#E7ECEE]">
       <Head>
@@ -114,10 +120,10 @@ function Checkout() {
                       Estimated tax for:{" "}
                       <p className="flex cursor-pointer items-end text-blue-500 hover:underline">
                         Enter zip code
-                        <ChevronDownIcon className="h-6 w-6" />
+                        {/* <ChevronDownIcon className="h-6 w-6" /> */}
                       </p>
                     </div>
-                    <p>$ -</p>
+                    <p>$0</p>
                   </div>
                 </div>
 
@@ -143,7 +149,10 @@ function Checkout() {
                         $283.16/mo. at 0% APR<sup className="-top-1">◊</sup>
                       </span>
                     </h4>
-                    <Button title="Check Out with Apple Card Monthly Installments" />
+                    <Button
+                      title="Check Out with Apple Card Monthly Installments"
+                      onClick={emiButtonHandler}
+                    />
                     <p className="mt-2 max-w-[240px] text-[13px]">
                       $0.00 due today, which includes applicable full-price
                       items, down payments, shipping, and taxes.

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useSelector } from "react-redux";
-
+import toast from "react-hot-toast";
 import {
   MagnifyingGlassIcon,
   ShoppingBagIcon,
@@ -17,6 +17,9 @@ function Header() {
     session
   );
   const basket = useSelector((state: any) => state.basket);
+  const searchHandler = () => {
+    toast.error("Working on it");
+  };
 
   return (
     <header className="sticky top-0 z-30 flex w-full items-center justify-between bg-[#E7ECEE] p-4">
@@ -51,7 +54,7 @@ function Header() {
       {/* navigation-icons */}
       <div className="flex items-center justify-center gap-x-4 md:w-1/5">
         {/* search_icon */}
-        <MagnifyingGlassIcon className="headerIcon" />
+        <MagnifyingGlassIcon className="headerIcon" onClick={searchHandler} />
         {/* cart_icon with link */}
         <Link href="/checkout">
           <div className="relative cursor-pointer">

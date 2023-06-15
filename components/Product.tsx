@@ -28,7 +28,7 @@ function Product({ product }: Props) {
       <div className="flex h-64  w-full justify-center md:h-72">
         <img
           src={urlFor(product.image[0]).url()}
-          className="object-contain"
+          className="object-contain "
           alt=""
         />
       </div>

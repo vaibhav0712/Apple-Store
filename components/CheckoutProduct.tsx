@@ -37,13 +37,13 @@ function CheckoutProduct({ id, items }: Props) {
             <h4 className="font-semibold lg:w-96">{items[0].title}</h4>
             <p className="flex items-end gap-x-1 font-semibold">
               {items.length}
-              <ChevronDownIcon className="h-6 w-6 text-blue-500" />
+              {/* <ChevronDownIcon className="h-6 w-6 text-blue-500" /> */}
             </p>
           </div>
 
           <p className="flex cursor-pointer items-end text-blue-500 hover:underline">
             Show product details
-            <ChevronDownIcon className="h-6 w-6" />
+            {/* <ChevronDownIcon className="h-6 w-6" /> */}
           </p>
         </div>
         <div className="flex flex-col items-end space-y-4">
