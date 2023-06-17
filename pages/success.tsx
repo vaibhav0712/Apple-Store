@@ -22,7 +22,6 @@ interface Props {
 
 //Success page
 function Success({ products }: Props) {
-  console.log("products>>>", products);
 
   const router = useRouter();
   const { session_id } = router.query;

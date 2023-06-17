@@ -10,14 +10,21 @@ import Product from "@/components/Product";
 import Basket from "@/components/Basket";
 import { getSession } from "next-auth/react";
 import type { Session } from "next-auth";
+import { useState } from "react";
 
 interface Props {
   categories: Category[];
   produsts: Product[];
   session: Session | null;
 }
+interface StateOf {
+  buttonState: boolean;
+}
 
 export default function Home({ categories, produsts }: Props) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchActive, setSearchActive] = useState(false);
+
   const showProducts = (category: number) => {
     const result = produsts
       .filter((product) => product.category._ref === categories[category]._id)
@@ -26,13 +33,38 @@ export default function Home({ categories, produsts }: Props) {
     return result;
   };
 
+  const handleSearch = () => {
+    const target = searchQuery.toLowerCase();
+    const result = produsts.filter((product) =>
+      product.title.toLowerCase().includes(target)
+    );
+    console.log(result);
+  };
+
   return (
     <div>
-      <Header />
+      <Header buttonState={searchActive} setButtonState={setSearchActive} />
 
       <Basket />
 
       <main className="relative h-[200vh] bg-[#E7ECEE]">
+        {searchActive && (
+          <div className="searchArea">
+            <input
+              type="text"
+              className="mx-2 mt-2 rounded-lg p-1"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search products..."
+            />
+            <button
+              className="rounded-lg bg-green-500 p-1"
+              onClick={handleSearch}
+            >
+              Search
+            </button>
+          </div>
+        )}
         <Landing />
       </main>
       <section className="relative z-40 -mt-[100vh] min-h-screen bg-[#1B1B1B]">

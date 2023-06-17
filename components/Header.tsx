@@ -10,15 +10,14 @@ import {
 } from "@heroicons/react/24/outline";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-function Header() {
+function Header({ buttonState, setButtonState }: any) {
   const { data: session } = useSession();
-  console.log(
-    "https://lh3.googleusercontent.com/a/AGNmyxbHBFdRhMvikdkAFaLiPszPgP0quL5v6VzpzaI2ng=s96-c",
-    session
-  );
+
   const basket = useSelector((state: any) => state.basket);
   const searchHandler = () => {
-    toast.error("Working on it");
+    console.log(buttonState);
+    setButtonState(!buttonState);
+    // toast.error("Working on it");
   };
 
   return (

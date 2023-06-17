@@ -42,7 +42,6 @@ function Checkout() {
         items: items,
       }
     );
-    console.log("checkoutSession", checkoutSession);
     // Internal Server Error
     // if ((checkoutSession as any).statusCode === 500) {
     //   console.error((checkoutSession as any).message);

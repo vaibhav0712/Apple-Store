@@ -11,12 +11,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(
-    "****************** Enter to checkout_sessions.ts ****************** "
-  );
   if (req.method === "POST") {
     const items: Product[] = req.body.items;
-    console.log("items", items);
     // this is the shape in  which
     const transformedItems = items.map((item) => ({
       price_data: {
@@ -29,7 +25,6 @@ export default async function handler(
       },
       quantity: 1,
     }));
-    console.log("transformedItems", transformedItems);
 
     // continue from here
     try {
