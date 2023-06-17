@@ -11,7 +11,7 @@ import Basket from "@/components/Basket";
 import { getSession } from "next-auth/react";
 import type { Session } from "next-auth";
 import { useState } from "react";
-
+import ProductBar from "@/components/ProductBar";
 interface Props {
   categories: Category[];
   produsts: Product[];
@@ -49,20 +49,26 @@ export default function Home({ categories, produsts }: Props) {
 
       <main className="relative h-[200vh] bg-[#E7ECEE]">
         {searchActive && (
-          <div className="searchArea">
-            <input
-              type="text"
-              className="mx-2 mt-2 rounded-lg p-1"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search products..."
-            />
-            <button
-              className="rounded-lg bg-green-500 p-1"
-              onClick={handleSearch}
-            >
-              Search
-            </button>
+          <div className="searchArea absolute z-10 min-h-full min-w-full bg-black bg-opacity-50">
+            <div className="mt-2 flex h-max w-full items-center justify-center ">
+              <input
+                type="text"
+                className="rounded-l-3xl bg-[#e7ecee] p-2 pl-4 outline-none lg:w-4/12"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search products..."
+              />
+              <button
+                className="rounded-r-3xl bg-indigo-600 bg-gradient-to-r from-pink-500 to-violet-500 p-2  text-white transition-all duration-300 focus:outline-none"
+                onClick={handleSearch}
+              >
+                Search
+              </button>
+            </div>
+            <div className="m-auto flex w-full flex-col items-center justify-center bg-[#e7ecee] p-4">
+              <ProductBar />
+              <ProductBar />
+            </div>
           </div>
         )}
         <Landing />
