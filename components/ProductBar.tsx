@@ -27,7 +27,7 @@ function ProductBar({ product }: any) {
           <p className="text-sm text-gray-500">₹{product.price}</p>
         </div>
         <div
-          className="flex h-9 w-9 items-center justify-center rounded-2xl bg-white "
+          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-2xl bg-white"
           onClick={addToBasketHandler}
         >
           <button className="">+</button>

@@ -33,7 +33,23 @@ export default function Home({ categories, produsts }: Props) {
 
     return result;
   };
-
+  const handleInputChange = (e: any) => {
+    const target = e.target.value.toLowerCase();
+    setSearchQuery(e.target.value);
+    if (target === "") return setSearchResult([]);
+    const result = produsts.filter((product) =>
+      product.title.toLowerCase().includes(target)
+    );
+    if (result.length > 8) {
+      // want that only 6 results are shown
+      result.length = 8;
+      setSearchResult(result);
+      return;
+    } else {
+      setSearchResult(result);
+    }
+    console.log("Result from keyStroke ----> ", result);
+  };
   const handleSearch = () => {
     const target = searchQuery.toLowerCase();
     if (target === "") return setSearchResult([]);
@@ -52,9 +68,9 @@ export default function Home({ categories, produsts }: Props) {
             <div className="mt-2 flex items-center justify-center">
               <input
                 type="text"
-                className="rounded-l-3xl bg-[#e7ecee] p-2 pl-4 outline-none"
+                className=" rounded-l-3xl bg-[#e7ecee] p-2 pl-4 outline-none"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleInputChange}
                 placeholder="try ipad ..."
               />
               <button
