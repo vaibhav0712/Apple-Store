@@ -10,12 +10,11 @@ import {
 } from "@heroicons/react/24/outline";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-function Header({ buttonState, setButtonState }: any) {
+function Header({ buttonState, setButtonState, ifLanding }: any) {
   const { data: session } = useSession();
 
   const basket = useSelector((state: any) => state.basket);
   const searchHandler = () => {
-    console.log(buttonState);
     setButtonState(!buttonState);
     // toast.error("Working on it");
   };
@@ -53,7 +52,9 @@ function Header({ buttonState, setButtonState }: any) {
       {/* navigation-icons */}
       <div className="flex items-center justify-center gap-x-4 md:w-1/5">
         {/* search_icon */}
-        <MagnifyingGlassIcon className="headerIcon" onClick={searchHandler} />
+        {ifLanding && (
+          <MagnifyingGlassIcon className="headerIcon" onClick={searchHandler} />
+        )}
         {/* cart_icon with link */}
         <Link href="/checkout">
           <div className="relative cursor-pointer">

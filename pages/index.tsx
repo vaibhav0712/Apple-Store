@@ -12,6 +12,7 @@ import { getSession } from "next-auth/react";
 import type { Session } from "next-auth";
 import { useState } from "react";
 import ProductBar from "@/components/ProductBar";
+
 interface Props {
   categories: Category[];
   produsts: Product[];
@@ -30,7 +31,6 @@ export default function Home({ categories, produsts }: Props) {
     const result = produsts
       .filter((product) => product.category._ref === categories[category]._id)
       .map((product) => <Product product={product} key={product._id} />); // filter products by category
-
     return result;
   };
   const handleInputChange = (e: any) => {
@@ -48,7 +48,6 @@ export default function Home({ categories, produsts }: Props) {
     } else {
       setSearchResult(result);
     }
-    console.log("Result from keyStroke ----> ", result);
   };
   const handleSearch = () => {
     const target = searchQuery.toLowerCase();
@@ -57,7 +56,6 @@ export default function Home({ categories, produsts }: Props) {
       product.title.toLowerCase().includes(target)
     );
     setSearchResult(result);
-    console.log(result);
   };
 
   return (
@@ -71,7 +69,7 @@ export default function Home({ categories, produsts }: Props) {
                 className=" w-[100%] rounded-l-3xl bg-[#e7ecee] p-2 pl-4  outline-none"
                 value={searchQuery}
                 onChange={handleInputChange}
-                placeholder="try ipad ..."
+                placeholder="Search here ..."
               />
               <button
                 className="rounded-r-3xl bg-indigo-600 bg-gradient-to-r from-pink-500 to-violet-500 p-2  text-white transition-all duration-300 focus:outline-none"
@@ -87,14 +85,18 @@ export default function Home({ categories, produsts }: Props) {
             </div>
           </div>
           <div
-            className="Overlay fixed left-0 top-0 z-40 min-h-full min-w-full bg-black bg-opacity-80"
+            className="Overlay fixed left-0 top-0 z-40 min-h-full min-w-full bg-black bg-opacity-90"
             onClick={() => {
               setSearchActive(false);
             }}
           ></div>
         </>
       )}
-      <Header buttonState={searchActive} setButtonState={setSearchActive} />
+      <Header
+        buttonState={searchActive}
+        setButtonState={setSearchActive}
+        ifLanding={true}
+      />
       <Basket />
       <main className="relative h-[200vh] bg-[#E7ECEE]">
         <Landing />
