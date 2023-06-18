@@ -64,11 +64,11 @@ export default function Home({ categories, produsts }: Props) {
     <div className="parent">
       {searchActive && (
         <>
-          <div className="searchArea absolute left-1/2 z-50 mt-20 -translate-x-1/2  p-1">
-            <div className="mt-2 flex items-center justify-center">
+          <div className="searchArea absolute left-1/2  z-50 mt-20 w-[90%] -translate-x-1/2  p-1 sm:w-auto ">
+            <div className="mt-2 flex items-center justify-center ">
               <input
                 type="text"
-                className=" rounded-l-3xl bg-[#e7ecee] p-2 pl-4 outline-none"
+                className=" w-[100%] rounded-l-3xl bg-[#e7ecee] p-2 pl-4  outline-none"
                 value={searchQuery}
                 onChange={handleInputChange}
                 placeholder="try ipad ..."
