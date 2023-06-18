@@ -13,7 +13,6 @@ interface Props {
 
 function Product({ product }: Props) {
   const dispatch = useDispatch();
-  const data = useSelector((state: any) => state);
 
   const addToBasketHandler = () => {
     dispatch(addToBasket(product));

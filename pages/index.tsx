@@ -24,6 +24,7 @@ interface StateOf {
 export default function Home({ categories, produsts }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchActive, setSearchActive] = useState(false);
+  const [searchResult, setSearchResult] = useState<Product[]>([]);
 
   const showProducts = (category: number) => {
     const result = produsts
@@ -35,28 +36,26 @@ export default function Home({ categories, produsts }: Props) {
 
   const handleSearch = () => {
     const target = searchQuery.toLowerCase();
+    if (target === "") return setSearchResult([]);
     const result = produsts.filter((product) =>
       product.title.toLowerCase().includes(target)
     );
+    setSearchResult(result);
     console.log(result);
   };
 
   return (
-    <div>
-      <Header buttonState={searchActive} setButtonState={setSearchActive} />
-
-      <Basket />
-
-      <main className="relative h-[200vh] bg-[#E7ECEE]">
-        {searchActive && (
-          <div className="searchArea absolute z-10 min-h-full min-w-full bg-black bg-opacity-50">
-            <div className="mt-2 flex h-max w-full items-center justify-center ">
+    <div className="parent">
+      {searchActive && (
+        <>
+          <div className="searchArea absolute left-1/2 z-50 mt-20 -translate-x-1/2  p-1">
+            <div className="mt-2 flex items-center justify-center">
               <input
                 type="text"
-                className="rounded-l-3xl bg-[#e7ecee] p-2 pl-4 outline-none lg:w-4/12"
+                className="rounded-l-3xl bg-[#e7ecee] p-2 pl-4 outline-none"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search products..."
+                placeholder="try ipad ..."
               />
               <button
                 className="rounded-r-3xl bg-indigo-600 bg-gradient-to-r from-pink-500 to-violet-500 p-2  text-white transition-all duration-300 focus:outline-none"
@@ -65,12 +64,23 @@ export default function Home({ categories, produsts }: Props) {
                 Search
               </button>
             </div>
-            <div className="m-auto flex w-full flex-col items-center justify-center bg-[#e7ecee] p-4">
-              <ProductBar />
-              <ProductBar />
+            <div className="mt-2 flex flex-col items-center justify-center">
+              {searchResult.map((product) => (
+                <ProductBar product={product} key={product._id} />
+              ))}
             </div>
           </div>
-        )}
+          <div
+            className="Overlay fixed left-0 top-0 z-40 min-h-full min-w-full bg-black bg-opacity-80"
+            onClick={() => {
+              setSearchActive(false);
+            }}
+          ></div>
+        </>
+      )}
+      <Header buttonState={searchActive} setButtonState={setSearchActive} />
+      <Basket />
+      <main className="relative h-[200vh] bg-[#E7ECEE]">
         <Landing />
       </main>
       <section className="relative z-40 -mt-[100vh] min-h-screen bg-[#1B1B1B]">
